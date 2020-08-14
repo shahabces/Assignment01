@@ -17,20 +17,20 @@ namespace Assignment01.ConsoleProcessRequest
         public async Task Consume(ConsumeContext<CheckOrderStatus> context)
         {
             int orderId = Convert.ToInt32(context.Message.OrderId);
+
+            OrderStatusResult orderStatusResult = new OrderStatusResult();
+
             if (orderId % 2 == 0)
             {
-                await context.RespondAsync<OrderStatusResult>(new OrderStatusResult
-                {
-                    StatusText = "Failed",
-                });
+                orderStatusResult.StatusText = "Failed";
             }
             else
             {
-                await context.RespondAsync<OrderStatusResult>(new OrderStatusResult
-                {
-                    StatusText = "OK",
-                });
+                orderStatusResult.StatusText = "OK";
             }
+
+            await context.RespondAsync<OrderStatusResult>(orderStatusResult);
+
         }
     }
 }
