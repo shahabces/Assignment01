@@ -9,6 +9,7 @@ namespace Assignment01.ConsoleProcessRequest
     {
         static async Task Main(string[] args)
         {
+            
             var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 cfg.ReceiveEndpoint("order-service", e =>

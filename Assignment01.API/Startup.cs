@@ -33,16 +33,7 @@ namespace Assignment01.API
             services.AddMassTransit(x =>
             {
                 x.AddRequestClient<CheckOrderStatus>();
-                x.AddConsumer<CheckOrderStatusConsumer>();
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.ReceiveEndpoint("order-service", e =>
-                    {
-                        
-                    });
-
-                    cfg.ConfigureEndpoints(context);
-                });
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq());
             });
 
             services.AddMassTransitHostedService();
